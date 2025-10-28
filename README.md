@@ -1,78 +1,73 @@
-# DigitalCommerce
+
+
+# **DigitalCommerce (Full Stack E-commerce)**
+
+```markdown
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/react-%5E18.0.0-blue.svg)](https://reactjs.org/)
 [![MongoDB](https://img.shields.io/badge/mongodb-5.0%2B-green.svg)](https://www.mongodb.com/)
 [![License](https://img.shields.io/badge/license-Commercial-blue.svg)](LICENSE.md)
+```
 
-> Production-ready Node.js backend API for modern e-commerce applications with secure authentication, Stripe payments, digital products, and admin analytics.
+> Production-ready **full stack e-commerce** with **frontend React website** + **Node.js backend API**, secure authentication, Stripe payments, digital products, and admin analytics.
 
 ---
 
-## 🚀 Key Features
+## 🚀 Features (Full Stack)
 
-### 🔐 Authentication & Security
-- JWT-based authentication with refresh tokens
-- Two-Factor Authentication (2FA)
-- Role-based access control (Admin/User)
-- Password encryption with bcrypt
-- XSS & NoSQL injection prevention
-- Helmet.js security headers
+### Frontend (Website)
 
-### 🛒 E-commerce Core
-- Product management (CRUD, categories, images, variants)
-- Shopping cart & order lifecycle management
-- Inventory tracking & stock management
-- Advanced search & filtering with pagination
+* Responsive React.js website
+* Product listing, search & filters
+* Shopping cart & checkout flow
+* User profile, wishlist, and order history
+* Admin dashboard for analytics & order management
+* Stripe payment integration
 
-### 💳 Payment Integration
-- Stripe payment processing
-- Multiple payment methods (cards, wallets, bank transfers)
-- Webhook handling & automatic order updates
-- Refund system
+### Backend (API)
 
-### 📦 Digital Products
-- License key generation & validation
-- Automatic delivery after payment
-- Key encryption & expiration management
-
-### 👥 User & Admin Features
-- User profiles, order history & wishlist
-- Address book management
-- Admin dashboard, analytics & sales reports
+* Node.js + Express REST API
+* JWT authentication with 2FA
+* Role-based access control (Admin/User)
+* Product management, orders, inventory
+* Stripe webhooks & refund system
+* License key generation & digital product delivery
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Node.js, Express.js  
-- **Database:** MongoDB, Mongoose  
-- **Authentication:** JWT, bcrypt  
-- **Payments:** Stripe  
-- **Security:** Helmet.js, Express Validator, Speakeasy (2FA)  
-- **Utilities:** QRCode generation, input validation  
+| Layer      | Tech Stack                                                                     |
+| ---------- | ------------------------------------------------------------------------------ |
+| Frontend   | React.js, TailwindCSS, Axios, React Router                                     |
+| Backend    | Node.js, Express.js, MongoDB, Mongoose, JWT, Bcrypt, Stripe, Helmet, Speakeasy |
+| Deployment | Vercel (frontend), Render / Railway / Fly.io (backend)                         |
 
 ---
 
 ## ⚡ Quick Start
 
-### Prerequisites
-```bash
-Node.js >= 18
-MongoDB >= 5
-Stripe Account
-````
-
-### Installation
+### Frontend
 
 ```bash
-git clone https://github.com/username/digitalcommerce-backend.git
-cd digitalcommerce-backend
+cd frontend
 npm install
 cp .env.example .env
-# Update .env with your credentials
-npm run dev
+npm start
+# Runs on http://localhost:3000
 ```
 
-### Environment Variables
+### Backend
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+# Runs on http://localhost:5000
+```
+
+### Environment Variables (Backend)
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
@@ -84,84 +79,45 @@ PORT=5000
 
 ---
 
-## 📂 Project Structure
+## 📂 Project Structure (Full Stack)
 
 ```
-src/
-├── config/          # Database & environment config
-├── controllers/     # Route controllers
-├── models/          # Mongoose schemas
-├── routes/          # API endpoints
-├── middleware/      # Authentication & error handling
-├── utils/           # Helper functions
-└── server.js        # Entry point
+root/
+├── frontend/       # React website
+│   ├── src/
+│   ├── public/
+│   └── package.json
+├── backend/        # Node.js API
+│   ├── src/
+│   ├── package.json
+│   └── server.js
+└── README.md
 ```
 
 ---
 
-## 📄 API Endpoints
+## 💖 Support / Donate
 
-### Authentication
+| Coin | Address                                        |
+| ---- | ---------------------------------------------- |
+| BTC  | `bc1qm6yycxa7fhvqxanw26h823rd5jm2c9t85ymnhm`   |
+| ETH  | `0xe74620c35f8ac5f77deba0cfc6beae91ad887f1f`   |
+| SOL  | `CdHRmNuwMiovqHtANnLAzQd9axgijd1WdHPqh5zUzpoU` |
 
-```
-POST   /api/auth/register       # Register new user
-POST   /api/auth/login          # Login user
-GET    /api/auth/me             # Get current user
-POST   /api/auth/logout         # Logout user
-```
-
-### Products
-
-```
-GET    /api/products
-GET    /api/products/:id
-POST   /api/products       # Admin only
-PUT    /api/products/:id   # Admin only
-DELETE /api/products/:id   # Admin only
-```
-
-### Cart
-
-```
-GET    /api/cart
-POST   /api/cart
-PUT    /api/cart/:id
-DELETE /api/cart/:id
-```
-
-### Orders
-
-```
-POST   /api/orders
-GET    /api/orders/myorders
-GET    /api/orders/:id
-GET    /api/orders         # Admin only
-```
+> Copy the address to your crypto wallet to send a donation. Thank you! 🙏
 
 ---
 
 ## 📄 License
 
-This project is released under a **commercial license**. See [LICENSE.md](LICENSE.md) for full details.
+Commercial license. See [LICENSE.md](LICENSE.md) for details.
 
 ---
 
 **Made with ❤️ by DigitalCommerce Team**
 © 2025 All rights reserved.
 
+```
 
-## 💖 Support / Donate
-
-If you find this project helpful, you can support me with cryptocurrency:
-
-| Coin | Address |
-|------|---------|
-| BTC  | `bc1qm6yycxa7fhvqxanw26h823rd5jm2c9t85ymnhm
-` | 
-| ETH  | `0xe74620c35f8ac5f77deba0cfc6beae91ad887f1f
-` | 
-| SOL | `CdHRmNuwMiovqHtANnLAzQd9axgijd1WdHPqh5zUzpoU` | 
-
-> Tip: Copy the address to your crypto wallet to send a donation. Thank you! 🙏
 
 ```
