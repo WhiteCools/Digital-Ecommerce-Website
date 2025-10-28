@@ -151,4 +151,19 @@ This project is released under a **commercial license**. See [LICENSE.md](LICENS
 **Made with ❤️ by DigitalCommerce Team**
 © 2025 All rights reserved.
 
+
+## 💖 Support / Donate
+
+If you find this project helpful, you can support me with cryptocurrency:
+
+| Coin | Address |
+|------|---------|
+| BTC  | `bc1qm6yycxa7fhvqxanw26h823rd5jm2c9t85ymnhm
+` | 
+| ETH  | `0xe74620c35f8ac5f77deba0cfc6beae91ad887f1f
+` | 
+| SOL | `CdHRmNuwMiovqHtANnLAzQd9axgijd1WdHPqh5zUzpoU` | 
+
+> Tip: Copy the address to your crypto wallet to send a donation. Thank you! 🙏
+
 ```
