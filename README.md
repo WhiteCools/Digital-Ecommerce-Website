@@ -1,5 +1,4 @@
-# DigitalCommerce Backend
-
+# DigitalCommerce
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
 [![MongoDB](https://img.shields.io/badge/mongodb-5.0%2B-green.svg)](https://www.mongodb.com/)
 [![License](https://img.shields.io/badge/license-Commercial-blue.svg)](LICENSE.md)
