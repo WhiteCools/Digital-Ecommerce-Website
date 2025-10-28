@@ -15,7 +15,6 @@
 - Two-Factor Authentication (2FA)
 - Role-based access control (Admin/User)
 - Password encryption with bcrypt
-- Rate limiting & DDoS protection
 - XSS & NoSQL injection prevention
 - Helmet.js security headers
 
