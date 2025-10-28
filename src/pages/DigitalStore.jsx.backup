@@ -1,0 +1,388 @@
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { ShoppingCart, Star, Package, Search, Filter, Key, UserCircle, Gift } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+import api from '../services/api';
+
+const DigitalStore = () => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('featured');
+
+  useEffect(() => {
+    fetchProducts();
+    fetchCategories();
+  }, [selectedCategory, sortBy]);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      
+      if (selectedCategory !== 'all') {
+        params.append('category', selectedCategory);
+      }
+      if (sortBy) {
+        params.append('sort', sortBy);
+      }
+
+      const { data } = await api.get(`/digital-products?${params}`);
+      setProducts(data.data);
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const { data } = await api.get('/digital-products/categories/list');
+      setCategories(data.data);
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+    }
+  };
+
+  const handleAddToCart = async (product) => {
+    const result = await addToCart(product, 1);
+    if (result.success) {
+      // Show success notification
+      alert(`✅ ${product.name} added to cart!`);
+    } else {
+      // Show error
+      alert(`❌ ${result.message}`);
+    }
+  };
+
+  const getProductIcon = (category) => {
+    const icons = {
+      'Discord Nitro': '🎮',
+      'Steam Keys': '🎮',
+      'Epic Games': '🎮',
+      'Netflix': '🎬',
+      'Spotify': '🎵',
+      'YouTube Premium': '📺',
+      'Game Accounts': '🎯',
+      'Xbox Game Pass': '🎮',
+      'PlayStation Plus': '🎮',
+      'Gift Cards': '🎁',
+      'VPN': '🔒',
+      'Other Digital': '💎',
+    };
+    return icons[category] || '💎';
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-pink-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white py-20">
+        {/* Animated background blobs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              rotate: [0, 90, 0],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-1/2 -left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              rotate: [90, 0, 90],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute -bottom-1/2 -right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+          />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center"
+          >
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight"
+            >
+              Get Your Keys<br/>
+              <span className="bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 bg-clip-text text-transparent">
+                Instantly.
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto font-light"
+            >
+              No waiting. No hassle. Just pick what you need and boom—it's yours.
+            </motion.p>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-wrap justify-center gap-8 text-sm font-medium"
+            >
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20"
+              >
+                <span className="text-2xl">⚡</span>
+                <span>Delivered in seconds</span>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20"
+              >
+                <span className="text-2xl">🔒</span>
+                <span>100% secure</span>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20"
+              >
+                <span className="text-2xl">✨</span>
+                <span>Works every time</span>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Search & Filter Bar */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100"
+        >
+          <div className="grid md:grid-cols-3 gap-4">
+            {/* Search */}
+            <motion.div 
+              whileFocus={{ scale: 1.02 }}
+              className="relative group"
+            >
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-purple-500 transition-colors" />
+              <input
+                type="text"
+                placeholder="What are you looking for?"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-purple-400 transition-all bg-gray-50 focus:bg-white"
+              />
+            </motion.div>
+
+            {/* Category Filter */}
+            <motion.div 
+              whileFocus={{ scale: 1.02 }}
+              className="relative group"
+            >
+              <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-purple-500 transition-colors" />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-purple-400 transition-all appearance-none bg-gray-50 focus:bg-white cursor-pointer"
+              >
+                <option value="all">Everything</option>
+                {categories.map((cat) => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name} • {cat.totalStock} available
+                  </option>
+                ))}
+              </select>
+            </motion.div>
+
+            {/* Sort */}
+            <motion.div
+              whileFocus={{ scale: 1.02 }}
+              className="relative"
+            >
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-purple-400 transition-all appearance-none bg-gray-50 focus:bg-white cursor-pointer"
+              >
+                <option value="featured">🌟 Our picks</option>
+                <option value="price_asc">💰 Cheapest first</option>
+                <option value="price_desc">💎 Premium first</option>
+                <option value="newest">✨ Just added</option>
+                <option value="popular">🔥 Trending</option>
+              </select>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Products Grid */}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full"
+            />
+            <p className="ml-4 text-gray-600 font-medium">Loading goodies...</p>
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-20"
+          >
+            <div className="text-6xl mb-4">🤷</div>
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">Nothing here yet</h3>
+            <p className="text-gray-600">Try searching for something else or check back later!</p>
+          </motion.div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product, index) => (
+              <motion.div
+                key={product._id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  delay: index * 0.05,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-purple-200"
+                onClick={() => navigate(`/digital-product/${product._id}`)}
+              >
+                {/* Product Image */}
+                <div className="relative h-52 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 overflow-hidden">
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.4 }}
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  
+                  {product.featured && (
+                    <motion.span 
+                      initial={{ x: -100 }}
+                      animate={{ x: 0 }}
+                      className="absolute top-3 left-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
+                    >
+                      ⭐ Hot pick
+                    </motion.span>
+                  )}
+                  
+                  <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-3xl px-3 py-2 rounded-2xl shadow-lg transform group-hover:scale-110 transition-transform">
+                    {getProductIcon(product.category)}
+                  </span>
+                  
+                  {product.stock > 0 ? (
+                    <motion.span 
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute bottom-3 right-3 bg-gradient-to-r from-green-400 to-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
+                    >
+                      ✓ {product.stock} in stock
+                    </motion.span>
+                  ) : (
+                    <span className="absolute bottom-3 right-3 bg-gray-800 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                      Sold out 😢
+                    </span>
+                  )}
+                </div>
+
+                {/* Product Info */}
+                <div className="p-5">
+                  <span className="inline-block text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                    {product.category}
+                  </span>
+                  
+                  <h3 className="font-bold text-gray-900 mt-3 mb-2 text-lg line-clamp-2 group-hover:text-purple-600 transition-colors">
+                    {product.name}
+                  </h3>
+                  
+                  <p className="text-sm text-gray-600 line-clamp-2 mb-4 leading-relaxed">
+                    {product.description}
+                  </p>
+
+                  {/* Rating */}
+                  <div className="flex items-center space-x-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < Math.floor(product.rating)
+                            ? 'text-yellow-400 fill-yellow-400'
+                            : 'text-gray-200'
+                        }`}
+                      />
+                    ))}
+                    <span className="text-sm text-gray-500 ml-2 font-medium">
+                      {product.numReviews > 0 ? `${product.numReviews} reviews` : 'New!'}
+                    </span>
+                  </div>
+
+                  {/* Price & Add to Cart */}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div>
+                      <div className="flex items-baseline space-x-1">
+                        <span className="text-3xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                          ${product.price.toFixed(2)}
+                        </span>
+                      </div>
+                      {product.productType && (
+                        <p className="text-xs text-gray-500 capitalize mt-1">
+                          {product.productType === 'code' ? '🎫 Digital code' : 
+                           product.productType === 'account' ? '👤 Full account' : 
+                           product.productType === 'key' ? '🔑 Game key' : product.productType}
+                        </p>
+                      )}
+                    </div>
+                    
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(product);
+                      }}
+                      disabled={product.stock === 0}
+                      className={`p-4 rounded-2xl shadow-lg transition-all ${
+                        product.stock === 0 
+                          ? 'bg-gray-300 cursor-not-allowed' 
+                          : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white'
+                      }`}
+                    >
+                      <ShoppingCart className="w-5 h-5" />
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default DigitalStore;

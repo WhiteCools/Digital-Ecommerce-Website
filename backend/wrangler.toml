@@ -1,0 +1,9 @@
+name = "digitalcommerce-backend"
+main = "src/server.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+NODE_ENV = "production"
+
+# Uncomment dan set MongoDB connection string di Cloudflare Dashboard
+# atau guna wrangler secret
