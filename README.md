@@ -108,12 +108,6 @@ root/
 
 ---
 
-## 📄 License
-
-Commercial license. See [LICENSE.md](LICENSE.md) for details.
-
----
-
 **Made with ❤️ by DigitalCommerce Team**
 © 2025 All rights reserved.
 
